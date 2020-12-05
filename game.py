@@ -48,15 +48,15 @@ class Battlefield:
         for actual_boat in location:
             print(actual_boat)
             if the_point==actual_boat:
-                self.battlefield[Ycoordinate][Xcoordinate]='x'
+                self.battlefield[Ycoordinate][Xcoordinate]='x '
                 break
         if the_point not in location:
-            self.battlefield[Ycoordinate][Xcoordinate]=' '
+            self.battlefield[Ycoordinate][Xcoordinate]='  '
 
     def check_coordinate(self,Xcoordinate,Ycoordinate):
-        if self.battlefield[Ycoordinate][Xcoordinate]='x':
+        if self.battlefield[Ycoordinate][Xcoordinate]='x ':
             return False
-        elif self.battlefield[Ycoordinate][Xcoordinate]=' ':
+        elif self.battlefield[Ycoordinate][Xcoordinate]='  ':
             return False
         else:
             return True
@@ -66,13 +66,13 @@ class Battlefield:
         for ship in Ship:
             location+=ship.actual_location
         for actual_boat in location:
-            self.battlefield[actual_boat[1]][actual_boat[0]]='@'
+            self.battlefield[actual_boat[1]][actual_boat[0]]='@ '
 
     def win_game(self):
         count=0
         for i in range(self.length):
             for j in range(self.width):
-                if self.battlefield[i][j]=='x':
+                if self.battlefield[i][j]=='x ':
                     count=count+1
         if count==9:
             return True
