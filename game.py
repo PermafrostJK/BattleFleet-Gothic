@@ -1,6 +1,6 @@
 
 class Ship:
-    def __init__(self,length,direction,lable): # I added the try...except to make sure the orientation of a ship is correct
+    def __init__(self,length,direction,lable): # lable added to differenctiate between players 1 and 2
         try:
             if direction != 'V' or direction != 'H':
                 raise Exception
