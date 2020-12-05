@@ -1,26 +1,32 @@
 
 class Ship:
-    def __init__(self,length,direction): # I added the try...except to make sure the orientation of a ship is correct
+    def __init__(self,length,direction,lable): # I added the try...except to make sure the orientation of a ship is correct
         try:
             if direction != 'V' or direction != 'H':
                 raise Exception
             self.length=length
             self.direction=direction
             self.actual_location=[]
+            self.lable=lable
              
         except Exception:
             print('Please enter a valid orientation for your ship')
 
-    def set_ship(self,locationX,locationY):
+    def set_ship(self,locationX,locationY,lable):
         if self.direction=='V':#vertical
             for i in range(self.length):
                 the_boat=[locationX,locationY+i]
-                self.actual_location.append(the_boat)
+                if 1+(lable-1)*4<=locationX<=4+(lable-1)*4 and 0<=locationY<=8:
+                    self.actual_location.append(the_boat)
+                 else:
+                    return False
         elif self.direction=='H':#horizontal
             for i in range(self.length):
                 the_boat=[locationX+i,locationY]
-                self.actual_location.append(the_boat)
-            
+                if 1+(lable-1)*4<=locationX<=4+(lable-1)*4 and 0<=locationY<=8:
+                    self.actual_location.append(the_boat)
+                 else:
+                    return False
             
 
 class Battlefield:
@@ -60,7 +66,7 @@ class Battlefield:
         for ship in Ship:
             location+=ship.actual_location
         for actual_boat in location:
-            self.battlefield[actual_boat[1]][actual_boat[0]]='*'
+            self.battlefield[actual_boat[1]][actual_boat[0]]='@'
 
     def win_game(self):
         count=0
