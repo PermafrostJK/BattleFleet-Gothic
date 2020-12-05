@@ -12,11 +12,11 @@ class Ship:
         except Exception:
             print('Please enter a valid orientation for your ship')
 
-    def set_ship(self,locationX,locationY,lable):
+    def set_ship(self,locationX,locationY):
         if self.direction=='V':#vertical
             for i in range(self.length):
                 the_boat=[locationX,locationY+i]
-                if 1+(lable-1)*4<=locationX<=4+(lable-1)*4 and 0<=locationY<=8:
+                if 1+(self.lable-1)*4<=locationX<=4+(self.lable-1)*4 and 0<=locationY<=8:
                     self.actual_location.append(the_boat)
                  else:
                     return False
