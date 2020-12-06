@@ -47,14 +47,14 @@ class Battlefield:
         for actual_boat in location:
             print(actual_boat)
             if the_point==actual_boat:
-                self.battlefield[Ycoordinate][Xcoordinate]='x '  ##困惑1，为什么要倒过来写x,y##
+                self.battlefield[Ycoordinate][Xcoordinate]='x '  ##困惑1，为什么要倒过来写x,y## hmm 我也在想
                 print("Good job, you hit an enemy ship!")
                 break
         if the_point not in location:
             self.battlefield[Ycoordinate][Xcoordinate]='  '
             print("Sorry, you didn't hit an enemy ship!")
 
-    def check_coordinate(self,Xcoordinate,Ycoordinate): ##困惑2，这个function是做什么的##
+    def check_coordinate(self,Xcoordinate,Ycoordinate): ##困惑2，这个function是做什么的##->原作者说是为了避免重复选择轰炸点
         if self.battlefield[Ycoordinate][Xcoordinate]=='x ':
             return False
         elif self.battlefield[Ycoordinate][Xcoordinate]=='  ':
@@ -69,16 +69,20 @@ class Battlefield:
         for actual_boat in location:
             self.battlefield[actual_boat[1]][actual_boat[0]]='@ '
 
-    def win_game(self):
+    def win_game(self): 
         count_1=0
         count_2=0
         for ship in Ship:
-            for i in range(ship.length/2+1,self.length+1):
-            for j in range(ship.width):
-                if self.battlefield[i][j]=='x ' and ship.lable==1::
-                     count_1+=1
-                if self.battlefield[i][j]=='x ' and ship.lable==2:
-                     count_2+=1
+            if ship.lable==1:
+                for i in range(ship.length/2+1,self.length+1):
+                    for j in range(ship.width):
+                        if self.battlefield[i][j]=='x ':
+                            count_1+=1
+            if ship.lable==2:
+                for i  in range(1,ship.length/2+1):
+                    for j in range(ship.width):
+                        if self.battlefield[i][j]=='x ':
+                            count_2+=1
         if count_1<count_2:
             print("the winner is player 2")
         elif count_1>count_2:
@@ -98,7 +102,7 @@ def __main__():
           "You need to put the ORIENTATION and LOCATION of your boat following the sequence above\n"
           "         For orientation, you need to enter 'V' for vertical and 'H' for horizontal\n"
           "         For location, you need to enter x and y coordinate for the fore of your current boat\n"
-          "         *As we only have 8*8 battlefield, please make sure every part of your ship won't be our of range*\n")
+          "         *Please make sure all of your vessles are placed entirely within your half of the battlefield*\n")
     length = 5
     for i in range(4):
         direction = input('Please enter the orientation of your ' + roster[i])
@@ -118,7 +122,7 @@ def __main__():
           "You need to put the ORIENTATION and LOCATION of your boat following the sequence above\n"
           "         For orientation, you need to enter 'V' for vertical and 'H' for horizontal\n"
           "         For location, you need to enter x and y coordinate for the fore of your current boat\n"
-          "         *As we only have 8*8 battlefield, please make sure every part of your ship won't be our of range*\n")
+          "         *Please make sure all of your vessles are placed entirely within your half of the battlefield*\n")
     length = 5
     for i in range(4):
         direction = input('Please enter the orientation of your ' + roster[i])
@@ -136,16 +140,10 @@ def __main__():
     #我不知道这里的parameter Ship 是不是我们刚刚pass过的player 2的ship instance,还是包括player 1在内的所有ship instance#
     #如果是后者，解决方法可能是要用在写所有东西之前按lable分类，建立两个class，再分别对他们进行操作#
     #实际上lable是更高一级的分类，四艘船都应该属于这个lable#
-    
-    #for player 1#
+
     while i in range(10): #由于时间限制模式要和chat system结合，目前只写限定攻击次数的模式，这里面先用10来计算，其实也可以让用户自选回合数#
-        x = input("Guess one x coordinate (ranging from 5 to 8) of your opponent's ship ")
-        y = input("Guess one y coordinate (ranging from 1 to 8)of your opponent's ship ")
-        Battlefield.update_battlefield(x,y)
-    #for player 2#
-    while i in range(10): #由于时间限制模式要和chat system结合，目前只写限定攻击次数的模式，这里面先用10来计算，其实也可以让用户自选回合数#
-        x = input("Guess one x coordinate (ranging from 1 to 4) of your opponent's ship ")
-        y = input("Guess one y coordinate (ranging from 1 to 8)of your opponent's ship ")
+        x = input("Guess one x coordinate of your opponent's ship ")
+        y = input("Guess one y coordinate of your opponent's ship ")
         Battlefield.update_battlefield(x,y)
     Battlefield.win_game()
 
