@@ -90,7 +90,7 @@ class Battlefield:
         else:
             print("You two got the same score! Slug it out next time!")
     
-    def __main__():
+def __main__():
     roster = ['Battleship', 'Cruizer', 'Destroyer', 'Corvette']
     #for player 1，因为我们没有加入chat system，只能写两遍input
     print("*************Welcome, Player 1! The game has started! Enjoy and try to win!*************\n")
@@ -147,4 +147,4 @@ class Battlefield:
         Battlefield.update_battlefield(x,y)
     Battlefield.win_game()
 
-__main__()
+__main__()    
