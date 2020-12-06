@@ -63,11 +63,17 @@ class Battlefield:
             return True
 
     def init_my_battlefield(self,Ship):
-        location=[]
+        location1=[]
+        location2=[]
         for ship in Ship:
-            location+=ship.actual_location
-        for actual_boat in location:
+            if ship.lable==1:
+                location1+=ship.actual_location
+            else:
+                location2+=ship.actual_location
+        for actual_boat in location1:
             self.battlefield[actual_boat[1]][actual_boat[0]]='@ '
+        for atucal_boat in location2:
+            self.battlefield[actual_boat[1]][actual_boat[0]]='* '
 
     def win_game(self): 
         count_1=0
@@ -111,7 +117,7 @@ def __main__():
         roster[i] = Ship(length, direction, 1)
         roster[i].set_ship(x,y)
         length -= 1
-    Battlefield.init_my_battlefield(Ship)
+    
     # for player 2
     print("*************Welcome, Player 2! The game has started! Enjoy and try to win!*************\n")
     print("You have the following 4 ships:\n"
@@ -131,7 +137,8 @@ def __main__():
         roster[i] = Ship(length, direction, 2)
         roster[i].set_ship(x, y)
         length -= 1
-    Battlefield.init_my_battlefield(Ship)
+    
+    Battlefield.init_my_battlefield(Ship)#一次性把所有ship存进去
     #以上为分别set两个player
     
     #困惑3#
