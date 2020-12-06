@@ -140,11 +140,18 @@ def __main__():
     #我不知道这里的parameter Ship 是不是我们刚刚pass过的player 2的ship instance,还是包括player 1在内的所有ship instance#
     #如果是后者，解决方法可能是要用在写所有东西之前按lable分类，建立两个class，再分别对他们进行操作#
     #实际上lable是更高一级的分类，四艘船都应该属于这个lable#
-
+    
+    #for player 1#
     for i in range(10): #由于时间限制模式要和chat system结合，目前只写限定攻击次数的模式，这里面先用10来计算，其实也可以让用户自选回合数#
         x = input("Guess one x coordinate of your opponent's ship ")
         y = input("Guess one y coordinate of your opponent's ship ")
         Battlefield.update_battlefield(x,y)
+    #for player 2#
+    for i in range(10): #由于时间限制模式要和chat system结合，目前只写限定攻击次数的模式，这里面先用10来计算，其实也可以让用户自选回合数#
+        x = input("Guess one x coordinate of your opponent's ship ")
+        y = input("Guess one y coordinate of your opponent's ship ")
+        Battlefield.update_battlefield(x,y)
+    
     Battlefield.win_game()
 
 __main__()    
