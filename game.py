@@ -2,7 +2,7 @@
 class Ship:
     def __init__(self,length,direction,lable): # lable added to differenctiate between players 1 and 2
         try:
-            if direction != 'V' or direction != 'H':
+            if direction != 'V' and direction != 'H':
                 raise Exception
             self.length=length
             self.direction=direction
