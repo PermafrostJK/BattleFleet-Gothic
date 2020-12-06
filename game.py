@@ -66,7 +66,7 @@ class Battlefield:
         location=[]
         for ship in Ship:
             location+=ship.actual_location
-        for actual_boat in location:
+        for actual_boat in location:   
             self.battlefield[actual_boat[1]][actual_boat[0]]='@ '
         
 
@@ -145,13 +145,13 @@ def __main__():
     
     #for player 1#
     for i in range(10): #由于时间限制模式要和chat system结合，目前只写限定攻击次数的模式，这里面先用10来计算，其实也可以让用户自选回合数#
-        x = input("Guess one x coordinate of your opponent's ship ")
-        y = input("Guess one y coordinate of your opponent's ship ")
+        x = input("Guess one x coordinate (ranging from 5-8) of your opponent's ship ")
+        y = input("Guess one y coordinate (ranging from 1-8) of your opponent's ship ")
         Battlefield.update_battlefield(x,y)
     #for player 2#
     for i in range(10): #由于时间限制模式要和chat system结合，目前只写限定攻击次数的模式，这里面先用10来计算，其实也可以让用户自选回合数#
-        x = input("Guess one x coordinate of your opponent's ship ")
-        y = input("Guess one y coordinate of your opponent's ship ")
+        x = input("Guess one x coordinate (ranging from 1-4) of your opponent's ship ")
+        y = input("Guess one y coordinate (ranging from 1-8) of your opponent's ship ")
         Battlefield.update_battlefield(x,y)
     
     Battlefield.win_game()
