@@ -42,7 +42,7 @@ class Battlefield:
     def update_battlefield(self,Xcoordinate,Ycoordinate):
         the_point=[Xcoordinate,Ycoordinate]
         location=[]
-        for ship in Ship:
+        for ship in Ship: #这个应该会有traceback, 因为Ship是个class
             location+=ship.actual_location
         for actual_boat in location:
             print(actual_boat)
