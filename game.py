@@ -39,7 +39,6 @@ class Battlefield:
         self.width=width
         self.length=length
         self.strbattlefield=''
-
     def update_battlefield(self,Xcoordinate,Ycoordinate):
         the_point=[Xcoordinate,Ycoordinate]
         location=[]
@@ -49,9 +48,11 @@ class Battlefield:
             print(actual_boat)
             if the_point==actual_boat:
                 self.battlefield[Ycoordinate][Xcoordinate]='x '
+                print("Good job, you hit an enemy ship!")
                 break
         if the_point not in location:
             self.battlefield[Ycoordinate][Xcoordinate]='  '
+            print("Sorry, you didn't hit an enemy ship!")
 
     def check_coordinate(self,Xcoordinate,Ycoordinate):
         if self.battlefield[Ycoordinate][Xcoordinate]='x ':
@@ -69,12 +70,23 @@ class Battlefield:
             self.battlefield[actual_boat[1]][actual_boat[0]]='@ '
 
     def win_game(self):
-        count=0
-        for i in range(self.length):
-            for j in range(self.width):
-                if self.battlefield[i][j]=='x ':
-                    count=count+1
-        if count==9:
+        count_1=0
+        count_2=0
+        if self.lable==1:
+            for i in range(self.length/2+1,self.length+1):
+                for j in range(self.width):
+                    if self.battlefield[i][j]=='x ':
+                        count_1+=1
+        if self.label==2:
+            for i  in range(1,self.length/2+1):
+                for j in range(self.width):
+                    if self.battlefield[i][j]=='x ':
+                        count_2+=1
+        if count_1>count_2:
+            print("Player 1 has won!")
+            return True
+        elif count_2>count_1:
+            print("Player 2 has won!")
             return True
         else:
-            return False
+            print("You two got the same score! Slug it out next time!")
