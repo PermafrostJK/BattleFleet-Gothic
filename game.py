@@ -63,17 +63,12 @@ class Battlefield:
             return True
 
     def init_my_battlefield(self,Ship):
-        location1=[]
-        location2=[]
+        location=[]
         for ship in Ship:
-            if ship.lable==1:
-                location1+=ship.actual_location
-            else:
-                location2+=ship.actual_location
-        for actual_boat in location1:
+            location+=ship.actual_location
+        for actual_boat in location:
             self.battlefield[actual_boat[1]][actual_boat[0]]='@ '
-        for atucal_boat in location2:
-            self.battlefield[actual_boat[1]][actual_boat[0]]='* '
+        
 
     def win_game(self): 
         count_1=0
