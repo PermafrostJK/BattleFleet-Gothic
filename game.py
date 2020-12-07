@@ -47,7 +47,7 @@ class Battlefield:
         for actual_boat in location:
             print(actual_boat)
             if the_point==actual_boat:
-                self.battlefield[Ycoordinate][Xcoordinate]='x '  ##困惑1，为什么要倒过来写x,y## hmm 我也在想
+                self.battlefield[Ycoordinate][Xcoordinate]='x '  ##困惑1，为什么要倒过来写x,y## 因为battlefield是一个list of lists, 每一个sublist都是一行, 所以list的index是Y坐标
                 print("Good job, you hit an enemy ship!")
                 break
         if the_point not in location:
