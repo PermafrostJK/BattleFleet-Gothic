@@ -1,10 +1,11 @@
 class Ship:
-    def __init__(self, length, direction):
+    def __init__(self, length, direction, lable):  # lable added to differenctiate between players 1 and 2
         if direction != 'V' and direction != 'H':
             raise Exception
         self.length = length
         self.direction = direction
         self.actual_location = []
+        self.lable = lable
 
     def set_ship(self, locationX, locationY):
         if self.direction == 'V': #verticle
@@ -79,19 +80,21 @@ class Battlefield:
 
 def set_for_1():
     roster = ['Battleship', 'Cruizer', 'Destroyer', 'Corvette']
+    b1 = Battlefield()
     #for player 1#
     print("*************Welcome, Player 1! The game has started! Enjoy and try to win!*************\n")
+    print("The original battlefield looks like this")
+    print(b1)
     print("You have the following 4 ships:\n"
-          "         'Battleship' with length of 5\n"
-          "         'Cruizer' with length of 4\n"
-          "         'Destroyer' with length of 3\n"
-          "         'Corvette' with length of 2\n\n"
+          "'Battleship' with length of 5\n"
+          "'Cruizer' with length of 4\n"
+          "'Destroyer' with length of 3\n"
+          "'Corvette' with length of 2\n\n"
           "You need to put the ORIENTATION and LOCATION of your boat following the sequence above\n"
           "         For orientation, you need to enter 'V' for vertical and 'H' for horizontal\n"
           "         For location, you need to enter x and y coordinate for the fore of your current boat\n"
           "*Please make sure all of your vessles are placed entirely within your half of the battlefield*\n")
     length = 5
-    b1 = Battlefield()
     for i in range(4):
         direction = input('Please enter the orientation of your ' + roster[i])
         while direction != 'V' and direction != 'H':
@@ -122,18 +125,20 @@ def set_for_1():
 def set_for_2():
     # for player 2
     roster = ['Battleship', 'Cruizer', 'Destroyer', 'Corvette']
+    b2 = Battlefield()
     print("*************Welcome, Player 2! The game has started! Enjoy and try to win!*************\n")
+    print("The original battlefield looks like this")
+    print(b2)
     print("You have the following 4 ships:\n"
-          "         'Battleship' with length of 5\n"
-          "         'Cruizer' with length of 4\n"
-          "         'Destroyer' with length of 3\n"
-          "         'Corvette' with length of 2\n\n"
+          "'Battleship' with length of 5\n"
+          "'Cruizer' with length of 4\n"
+          "'Destroyer' with length of 3\n"
+          "'Corvette' with length of 2\n\n"
           "You need to put the ORIENTATION and LOCATION of your boat following the sequence above\n"
           "         For orientation, you need to enter 'V' for vertical and 'H' for horizontal\n"
           "         For location, you need to enter x and y coordinate for the fore of your current boat\n"
           "*Please make sure all of your vessles are placed entirely within your half of the battlefield*\n")
     length = 5
-    b2 = Battlefield()
     for i in range(4):
         direction = input('Please enter the orientation of your ' + roster[i])
         while direction != 'V' and direction != 'H':
