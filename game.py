@@ -127,8 +127,8 @@ def __main__():
     length = 5
     for i in range(4):
         direction = input('Please enter the orientation of your ' + roster[i])
-        x = input("Please set up the x (ranging from 5-8) of your " + roster[i])
-        y = input("Please set up the y (ranging from 1-8) of your " + roster[i])
+        x = int(input("Please set up the x (ranging from 5-8) of your " + roster[i]))
+        y = int(input("Please set up the y (ranging from 1-8) of your " + roster[i]))
         roster[i] = Ship(length, direction, 2)
         roster[i].set_ship(x, y)
         length -= 1
@@ -145,13 +145,13 @@ def __main__():
     
     #for player 1#
     for i in range(10): #由于时间限制模式要和chat system结合，目前只写限定攻击次数的模式，这里面先用10来计算，其实也可以让用户自选回合数#
-        x = input("Guess one x coordinate (ranging from 5-8) of your opponent's ship ")
-        y = input("Guess one y coordinate (ranging from 1-8) of your opponent's ship ")
+        x = int(input("Guess one x coordinate (ranging from 5-8) of your opponent's ship "))
+        y = int(input("Guess one y coordinate (ranging from 1-8) of your opponent's ship "))
         Battlefield.update_battlefield(x,y)
     #for player 2#
     for i in range(10): #由于时间限制模式要和chat system结合，目前只写限定攻击次数的模式，这里面先用10来计算，其实也可以让用户自选回合数#
-        x = input("Guess one x coordinate (ranging from 1-4) of your opponent's ship ")
-        y = input("Guess one y coordinate (ranging from 1-8) of your opponent's ship ")
+        x = int(input("Guess one x coordinate (ranging from 1-4) of your opponent's ship "))
+        y = int(input("Guess one y coordinate (ranging from 1-8) of your opponent's ship "))
         Battlefield.update_battlefield(x,y)
     
     Battlefield.win_game()
