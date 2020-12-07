@@ -101,14 +101,20 @@ def set_for_1():
         while direction != 'V' and direction != 'H':
             print('Please enter a valid orientation for your ship')
             direction = input('Please enter the orientation of your ' + roster[i])
-        x = int(input("Please set up the x (ranging from 1-4) of your " + roster[i])) #如果输入的不是整数，也会报错，那这个漏洞还要改吗？
-        y = int(input("Please set up the y (ranging from 1-8) of your " + roster[i]))
+        try:
+            x = int(input("Please set up the x (ranging from 1-4) of your " + roster[i])) #如果输入的不是整数，也会报错，那这个漏洞还要改吗？
+            y = int(input("Please set up the y (ranging from 1-8) of your " + roster[i]))
+        except ValueError:
+            continue
         while x not in [1, 2, 3, 4] or (direction == "H" and x + length-1 >4) \
                 or y not in [1,2,3,4,5,6,7,8] or (direction=="V" and y+length>8):
             print('Please enter a valid orientation and x/y coordinate to make sure it is not out of scope')
             direction = input('Please enter the orientation of your ' + roster[i])
-            x = int(input("Please set up the x (ranging from 1-4) of your " + roster[i]))
-            y = int(input("Please set up the y (ranging from 1-8) of your " + roster[i]))
+            try:
+                x = int(input("Please set up the x (ranging from 1-4) of your " + roster[i]))
+                y = int(input("Please set up the y (ranging from 1-8) of your " + roster[i]))
+            except ValueError:
+                continue
         while b1.battlefield[y][x] == "@ ":
             print("Please enter a valid orientation and x/y coordinate to make sure it is not the same as one of the previous boats")
             try:
@@ -146,14 +152,20 @@ def set_for_2():
         while direction != 'V' and direction != 'H':
             print('Please enter a valid orientation for your ship')
             direction = input('Please enter the orientation of your ' + roster[i])
-        x = int(input("Please set up the x (ranging from 5-8) of your " + roster[i]))
-        y = int(input("Please set up the y (ranging from 1-8) of your " + roster[i]))
+        try:
+            x = int(input("Please set up the x (ranging from 5-8) of your " + roster[i]))
+            y = int(input("Please set up the y (ranging from 1-8) of your " + roster[i]))
+        except ValueError:
+            continue
         while x not in [5, 6, 7, 8] or (direction == "H" and x + length-1 > 8) \
                 or y not in [1, 2, 3, 4, 5, 6, 7, 8] or (direction == "V" and y + length > 8):
             print('Please enter a valid orientation and x/y coordinate to make sure it is not out of scope')
             direction = input('Please enter the orientation of your ' + roster[i])
-            x = int(input("Please set up the x (ranging from 5-8) of your " + roster[i]))
-            y = int(input("Please set up the y (ranging from 1-8) of your " + roster[i]))
+            try:
+                x = int(input("Please set up the x (ranging from 5-8) of your " + roster[i]))
+                y = int(input("Please set up the y (ranging from 1-8) of your " + roster[i]))
+            except ValueError:
+                continue
         while b2.battlefield[y][x] == "@ ":
             print("Please enter a valid orientation and x/y coordinate to make sure it is not the same as one of the previous boats")
             try:
