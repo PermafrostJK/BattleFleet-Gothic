@@ -18,14 +18,14 @@ class Ship:
                 the_boat=[locationX,locationY+i]
                 if 1+(self.lable-1)*4<=locationX<=4+(self.lable-1)*4 and 0<=locationY<=8:
                     self.actual_location.append(the_boat)
-                 else:
+                else:
                     return False
         elif self.direction=='H':#horizontal
             for i in range(self.length):
                 the_boat=[locationX+i,locationY]
                 if 1+(self.lable-1)*4<=locationX<=4+(self.lable-1)*4 and 0<=locationY<=8:
                     self.actual_location.append(the_boat)
-                 else:
+                else:
                     return False
             
 
