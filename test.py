@@ -1,11 +1,10 @@
 class Ship:
-    def __init__(self, length, direction, lable):  # lable added to differenctiate between players 1 and 2
+    def __init__(self, length, direction):
         if direction != 'V' and direction != 'H':
             raise Exception
         self.length = length
         self.direction = direction
         self.actual_location = []
-        self.lable = lable
 
     def set_ship(self, locationX, locationY):
         if self.direction == 'V': #verticle
@@ -102,12 +101,12 @@ def set_for_1():
         y = int(input("Please set up the y (ranging from 1-8) of your " + roster[i]))
         while x not in [1, 2, 3, 4] or (direction == "H" and x + length-1 >4) \
                 or y not in [1,2,3,4,5,6,7,8] or (direction=="V" and y+length>8):
-            print('Please enter a valid coordinate and x/y coordinate to make sure it is not out of scope')
+            print('Please enter a valid orientation and x/y coordinate to make sure it is not out of scope')
             direction = input('Please enter the orientation of your ' + roster[i])
             x = int(input("Please set up the x (ranging from 1-4) of your " + roster[i]))
             y = int(input("Please set up the y (ranging from 1-8) of your " + roster[i]))
         while b1.battlefield[y][x] == "@ ":
-            print("Please enter a valid coordinate and x/y coordinate to make sure it is not the same as one of the previous boats")
+            print("Please enter a valid orientation and x/y coordinate to make sure it is not the same as one of the previous boats")
             try:
                     direction = input('Please enter the orientation of your ' + roster[i])
                     x = int(input("Please set up the x (ranging from 1-4) of your " + roster[i]))
