@@ -85,6 +85,7 @@ def set_for_1():
     print("*************Welcome, Player 1! The game has started! Enjoy and try to win!*************\n")
     print("The original battlefield looks like this")
     print(b1)
+    print('The left is your field and the right is enemy field!')
     print("You have the following 4 ships:\n"
           "'Battleship' with length of 5\n"
           "'Cruizer' with length of 4\n"
@@ -129,6 +130,7 @@ def set_for_2():
     print("*************Welcome, Player 2! The game has started! Enjoy and try to win!*************\n")
     print("The original battlefield looks like this")
     print(b2)
+    print('The right is your field and the left is the enemy field!')
     print("You have the following 4 ships:\n"
           "'Battleship' with length of 5\n"
           "'Cruizer' with length of 4\n"
@@ -171,6 +173,10 @@ def attack_for_1(b1,b2): # for player 1#
     try:
         x = int(input("Player 1, guess one x coordinate (ranging from 5 to 8)of your opponent's ship "))
         y = int(input("Player 1, guess one y coordinate (ranging from 1 to 8)of your opponent's ship "))
+        while x not in [5, 6, 7, 8] or y not in [1, 2, 3, 4, 5, 6, 7, 8]:
+            print('Please enter a valid x/y coordinate to make sure it is in the enemy field')
+            x = int(input("Player 1, guess one x coordinate (ranging from 5 to 8)of your opponent's ship "))
+            y = int(input("Player 1, guess one y coordinate (ranging from 1 to 8)of your opponent's ship "))
     except ValueError:
         print("Please enter a valid integer for x/y")
         x = int(input("Player 1, guess one x coordinate (ranging from 5 to 8)of your opponent's ship "))
@@ -180,6 +186,10 @@ def attack_for_2(b1,b2): # for player 2#
     try:
         x = int(input("Player 2, guess one x coordinate (ranging from 1 to 4)of your opponent's ship "))
         y = int(input("Player 2, guess one y coordinate (ranging from 1 to 8)of your opponent's ship "))
+        while x not in [1,2,3,4] or y not in [1, 2, 3, 4, 5, 6, 7, 8]:
+            print('Please enter a valid x/y coordinate to make sure it is in the enemy field')
+            x = int(input("Player 1, guess one x coordinate (ranging from 1 to 4)of your opponent's ship "))
+            y = int(input("Player 1, guess one y coordinate (ranging from 1 to 8)of your opponent's ship "))
     except ValueError:
         print("Please enter a valid integer for x/y")
         x = int(input("Player 2, guess one x coordinate (ranging from 1 to 4)of your opponent's ship "))
