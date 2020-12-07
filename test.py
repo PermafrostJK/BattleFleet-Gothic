@@ -79,9 +79,9 @@ class Battlefield:
         return count
 
 def set_for_1():
+    #for player 1#
     roster = ['Battleship', 'Cruizer', 'Destroyer', 'Corvette']
     b1 = Battlefield()
-    #for player 1#
     print("*************Welcome, Player 1! The game has started! Enjoy and try to win!*************\n")
     print("The original battlefield looks like this")
     print(b1)
