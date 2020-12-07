@@ -100,7 +100,7 @@ def set_for_1():
             direction = input('Please enter the orientation of your ' + roster[i])
         x = int(input("Please set up the x (ranging from 1-4) of your " + roster[i]))
         y = int(input("Please set up the y (ranging from 1-8) of your " + roster[i]))
-        while x not in [1, 2, 3, 4] or (direction == "H" and x + length >5) \
+        while x not in [1, 2, 3, 4] or (direction == "H" and x + length-1 >4) \
                 or y not in [1,2,3,4,5,6,7,8] or (direction=="V" and y+length>8):
             print('Please enter a valid coordinate and x/y coordinate to make sure it is not out of scope')
             direction = input('Please enter the orientation of your ' + roster[i])
@@ -142,7 +142,7 @@ def set_for_2():
             direction = input('Please enter the orientation of your ' + roster[i])
         x = int(input("Please set up the x (ranging from 1-4) of your " + roster[i]))
         y = int(input("Please set up the y (ranging from 1-8) of your " + roster[i]))
-        while x not in [5, 6, 7, 8] or (direction == "H" and x + length > 9) \
+        while x not in [5, 6, 7, 8] or (direction == "H" and x + length-1 > 8) \
                 or y not in [1, 2, 3, 4, 5, 6, 7, 8] or (direction == "V" and y + length > 8):
             print('Please enter a valid orientation and x/y coordinate to make sure it is not out of scope')
             direction = input('Please enter the orientation of your ' + roster[i])
@@ -154,7 +154,7 @@ def set_for_2():
                 direction = input('Please enter the orientation of your ' + roster[i])
                 x = int(input("Please set up the x (ranging from 5-8) of your " + roster[i]))
                 y = int(input("Please set up the y (ranging from 1-8) of your " + roster[i]))
-            except ValueError or IndexError:
+            except ValueError:
                 continue
         a_ship = Ship(length, direction, 2)
         a_ship.set_ship(x, y)
