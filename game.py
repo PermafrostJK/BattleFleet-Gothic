@@ -107,8 +107,8 @@ def __main__():
     length = 5
     for i in range(4):
         direction = input('Please enter the orientation of your ' + roster[i])
-        x = input("Please set up the x (ranging from 1-4) of your " + roster[i])
-        y = input("Please set up the y (ranging from 1-8) of your " + roster[i])
+        x = int(input("Please set up the x (ranging from 1-4) of your " + roster[i]))
+        y = int(input("Please set up the y (ranging from 1-8) of your " + roster[i]))
         roster[i] = Ship(length, direction, 1)
         roster[i].set_ship(x,y)
         length -= 1
