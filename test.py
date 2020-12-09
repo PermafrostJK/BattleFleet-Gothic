@@ -16,68 +16,67 @@ class Ship:
             for i in range(self.length):
                 the_boat = [locationX + i, locationY]
                 self.actual_location.append(the_boat)
-
+#==================================================================================================================================#
 class Battlefield:
     def __init__(self, width=8, length=8):
-        self.battlefield = [['o ' for i in range(width + 1)] for j in range(length + 1)]
-        for i in range(width + 1):
+        self.battlefield = [['o ' for i in range(length + 1)] for j in range(width+ 1)]
+        for i in range(length + 1):
             self.battlefield[0][i] = str(i)+" "
-        for j in range(length + 1):
+        for j in range(width + 1):
             self.battlefield[j][0] = str(j)+" "
         self.width = width
         self.length = length
         self.strbattlefield = ''
 
-    def update_battlefield_for_1(self, Xcoordinate, Ycoordinate,b2):
-        if self.battlefield[Ycoordinate][Xcoordinate]=="x " or self.battlefield[Ycoordinate][Xcoordinate]==" ":
-            print("\nThis point has already been hit, try another one next time!")
-        else:
-            if b2.battlefield[Ycoordinate][Xcoordinate]=="@ ":
-                self.battlefield[Ycoordinate][Xcoordinate]="x "
-                print("\nGood job, you hit an enemy ship!")
-            else:
-                self.battlefield[Ycoordinate][Xcoordinate] = '  '
-                print("\nSorry, you didn't hit an enemy ship!")
-        print("Now, the battlefield looks like this")
-        print(self)
-    def update_battlefield_for_2(self, Xcoordinate, Ycoordinate,b1):
-        if self.battlefield[Ycoordinate][Xcoordinate]=="x " or self.battlefield[Ycoordinate][Xcoordinate]==" ":
-            print("\nThis point has already been hit, try another one next time!")
-        else:
-            if b1.battlefield[Ycoordinate][Xcoordinate]=="@ ":
-                self.battlefield[Ycoordinate][Xcoordinate]="x "
-                print("\nGood job, you hit an enemy ship!")
-            else:
-                self.battlefield[Ycoordinate][Xcoordinate] = '  '
-                print("\nSorry, you didn't hit an enemy ship!")
-        print("Now, the battlefield looks like this")
-        print(self)
-
     def init_my_battlefield(self,ship):
         for actual_boat in ship.actual_location:
             self.battlefield[actual_boat[1]][actual_boat[0]] = '@ '
+    
+    def check_coordinate(self,Xcoordinate,Ycoordinate):
+        check=0
+        if self.battlefield[Ycoordinate][Xcoordinate]=='x ' or self.battlefield[Ycoordinate][Xcoordinate]=='  ':
+            check+=0
+        elif self.battlefield[Ycoordinate][Xcoordinate]=='o ':
+            check+=1
+        else:
+            check+=2
+        return check
+    
+    def update_battlefield(self, Xcoordinate, Ycoordinate,battlefield):
+        if battlefield.check_coordinate(Xcoordinate,Ycoordinate)==0:
+            print("\nThis point has already been hit, try another one next time!")
+        elif battlefield.check_coordinate(Xcoordinate,Ycoordinate)==1:
+            self.battlefield[Ycoordinate][Xcoordinate] = '  '
+            print("\nSorry, you didn't hit an enemy ship!")
+        else:
+            self.battlefield[Ycoordinate][Xcoordinate] = '@ '
+            print("\nGood job, you hit an enemy ship!")           
+        print("Now, the battlefield looks like this")
+        print(self)
+
+    
     def __str__(self):
         str=""
-        for i in range(9):
-            for j in range(9):
+        for i in range(self.width+1):
+            for j in range(self.length+1):
                 str+=self.battlefield[i][j]
             str+="\n"
         return str
     def points_for_1(self):
         count = 0
-        for i in range(5,9):
-            for j in range(1,9):
-                if self.battlefield[i][j] == 'x ':
+        for i in range((self.length/2)+1,self.length+1):
+            for j in range(1,self.width+1):
+                if self.battlefield[j][i] == 'x ':
                     count += 1
         return count
     def points_for_2(self):
         count = 0
-        for i in range(1,5):
-            for j in range(1,9):
-                if self.battlefield[i][j] == 'x ':
+        for i in range(1,(self.length/2)+1):
+            for j in range(1,self.width+1):
+                if self.battlefield[j][i] == 'x ':
                     count += 1
         return count
-
+#==================================================================================================================================#
 def set_for_1():
     #for player 1#
     roster = ['Battleship', 'Cruizer', 'Destroyer', 'Corvette']
@@ -180,7 +179,7 @@ def set_for_2():
         print(b2)
         length -= 1
     return b2
-
+#==================================================================================================================================#
 def attack_for_1(b1,b2): # for player 1#
     try:
         x = int(input("Player 1, guess one x coordinate (ranging from 5 to 8)of your opponent's ship "))
@@ -208,7 +207,7 @@ def attack_for_2(b1,b2): # for player 2#
         y = int(input("Player 2, guess one y coordinate (ranging from 1 to 8)of your opponent's ship "))
     b2.update_battlefield_for_2(x, y,b1)
 
-
+#==================================================================================================================================#
 def main():
     b1 = set_for_1()
     b2 = set_for_2()
