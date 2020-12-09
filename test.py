@@ -64,14 +64,14 @@ class Battlefield:
         return str
     def points_for_1(self):
         count = 0
-        for i in range((self.length/2)+1,self.length+1):
+        for i in range((int(self.length/2))+1,self.length+1):
             for j in range(1,self.width+1):
                 if self.battlefield[j][i] == 'x ':
                     count += 1
         return count
     def points_for_2(self):
         count = 0
-        for i in range(1,(self.length/2)+1):
+        for i in range(1,(int(self.length/2))+1):
             for j in range(1,self.width+1):
                 if self.battlefield[j][i] == 'x ':
                     count += 1
