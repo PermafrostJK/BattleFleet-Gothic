@@ -1,3 +1,5 @@
+import random
+
 class Ship:
     def __init__(self, length, direction, lable):  # lable added to differenctiate between players 1 and 2
         if direction != 'V' and direction != 'H':
@@ -147,30 +149,33 @@ def set_for_2():
           "*Please make sure all of your vessles are placed entirely within your half of the battlefield*\n")
     length = 5
     for i in range(4):
-        direction = input('Please enter the orientation of your ' + roster[i])
-        while direction != 'V' and direction != 'H':
-            print('Please enter a valid orientation for your ship')
-            direction = input('Please enter the orientation of your ' + roster[i])
+        k=random.randint(0,1)
+        list0=['H','V']
+        direction=list0[k]
+        
         try:
-            x = int(input("Please set up the x (ranging from 5-8) of your " + roster[i]))
-            y = int(input("Please set up the y (ranging from 1-8) of your " + roster[i]))
+            x = random.randint(5,8)
+            y = random.randint(1,8)
         except ValueError:
             continue
         while x not in [5, 6, 7, 8] or (direction == "H" and x + length-1 > 8) \
                 or y not in [1, 2, 3, 4, 5, 6, 7, 8] or (direction == "V" and y + length-1 > 8):
-            print('Please enter a valid orientation and x/y coordinate to make sure it is not out of scope')
-            direction = input('Please enter the orientation of your ' + roster[i])
+            m=random.randint(0,1)
+            list1=['H','V']
+            direction=list1[m]
             try:
-                x = int(input("Please set up the x (ranging from 5-8) of your " + roster[i]))
-                y = int(input("Please set up the y (ranging from 1-8) of your " + roster[i]))
+                x = random.randint(5,8)
+                y = random.randint(1,8)
             except ValueError:
                 continue
         while b2.battlefield[y][x] == "@ ":
-            print("Please enter a valid orientation and x/y coordinate to make sure it is not the same as one of the previous boats")
+            
             try:
-                direction = input('Please enter the orientation of your ' + roster[i])
-                x = int(input("Please set up the x (ranging from 5-8) of your " + roster[i]))
-                y = int(input("Please set up the y (ranging from 1-8) of your " + roster[i]))
+                n=random.randint(0,1)
+                list2=['H','V']
+                direction=list2[n]
+                x = random.randint(5,8)
+                y = random.randint(1,8)
             except ValueError:
                 continue
         a_ship = Ship(length, direction, 2)
