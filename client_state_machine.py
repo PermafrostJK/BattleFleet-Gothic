@@ -98,10 +98,16 @@ class ClientSM:
                         self.out_msg += poem + '\n\n'
                     else:
                         self.out_msg += 'Sonnet ' + poem_idx + ' not found\n\n'
-                elif my_msg[0:4]=='game':
+                
+                elif my_msg[0:5]=='game1':
                     self.out_msg += ' Have fun!\n\n'
                     self.out_msg += '-----------------------------------\n'
-                    os.system('python test.py')
+                    os.system('python single_game.py')
+                
+                elif my_msg[0:5]=='game2':
+                    self.out_msg += ' Have fun!\n\n'
+                    self.out_msg += '-----------------------------------\n'
+                    os.system('python game_two_players.py')
 
 
                 else:
