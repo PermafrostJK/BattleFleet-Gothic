@@ -199,17 +199,10 @@ def attack_for_1(b1,b2): # for player 1#
         y = int(input("Player 1, guess one y coordinate (ranging from 1 to 8)of your opponent's ship "))
     b1.update_battlefield(x,y,b2)
 def attack_for_2(b1,b2): # for player 2#
-    try:
-        x = int(input("Player 2, guess one x coordinate (ranging from 1 to 4)of your opponent's ship "))
-        y = int(input("Player 2, guess one y coordinate (ranging from 1 to 8)of your opponent's ship "))
-        while x not in [1,2,3,4] or y not in [1, 2, 3, 4, 5, 6, 7, 8]:
-            print('Please enter a valid x/y coordinate to make sure it is in the enemy field')
-            x = int(input("Player 1, guess one x coordinate (ranging from 1 to 4)of your opponent's ship "))
-            y = int(input("Player 1, guess one y coordinate (ranging from 1 to 8)of your opponent's ship "))
-    except ValueError:
-        print("Please enter a valid integer for x/y")
-        x = int(input("Player 2, guess one x coordinate (ranging from 1 to 4)of your opponent's ship "))
-        y = int(input("Player 2, guess one y coordinate (ranging from 1 to 8)of your opponent's ship "))
+ 
+    x = random.randint(1,4)
+    y = random.randint(1,8)
+    
     b2.update_battlefield(x, y,b1)
 
 #==================================================================================================================================#
