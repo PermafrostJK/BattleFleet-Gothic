@@ -156,32 +156,20 @@ def set_for_2():
         k = random.randint(0, 1)
         list0 = ['H', 'V']
         direction = list0[k]
-
-        try:
-            x = random.randint(5, 8)
-            y = random.randint(1, 8)
-        except ValueError:
-            continue
-        while x not in [5, 6, 7, 8] or (direction == "H" and x + length - 1 > 8) \
-                or y not in [1, 2, 3, 4, 5, 6, 7, 8] or (direction == "V" and y + length - 1 > 8):
+        x = random.randint(5, 8)
+        y = random.randint(1, 8)
+        while (direction == "H" and x + length - 1 > 8) or (direction == "V" and y + length - 1 > 8):
             m = random.randint(0, 1)
             list1 = ['H', 'V']
             direction = list1[m]
-            try:
-                x = random.randint(5, 8)
-                y = random.randint(1, 8)
-            except ValueError:
-                continue
+            x = random.randint(5, 8)
+            y = random.randint(1, 8)
         while b2.battlefield[y][x] == "@ ":
-
-            try:
-                n = random.randint(0, 1)
-                list2 = ['H', 'V']
-                direction = list2[n]
-                x = random.randint(5, 8)
-                y = random.randint(1, 8)
-            except ValueError:
-                continue
+            n = random.randint(0, 1)
+            list2 = ['H', 'V']
+            direction = list2[n]
+            x = random.randint(5, 8)
+            y = random.randint(1, 8)
         a_ship = Ship(length, direction, 2)
         a_ship.set_ship(x, y)
         b2.init_my_battlefield(a_ship)
