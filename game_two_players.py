@@ -49,7 +49,7 @@ class Battlefield:
             self.battlefield[Ycoordinate][Xcoordinate] = '  '
             print("\nSorry, you didn't hit an enemy ship!")
         else:
-            self.battlefield[Ycoordinate][Xcoordinate] = '@ '
+            self.battlefield[Ycoordinate][Xcoordinate] = 'x '
             print("\nGood job, you hit an enemy ship!")           
         print("Now, the battlefield looks like this")
         print(self)
