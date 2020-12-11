@@ -102,7 +102,7 @@ class ClientSM:
                 elif my_msg[0:5]=='game1':
                     self.out_msg += ' Have fun!\n\n'
                     self.out_msg += '-----------------------------------\n'
-                    os.system('python single_game.py')
+                    os.system('python game_single_player.py')
                 
                 elif my_msg[0:5]=='game2':
                     self.out_msg += ' Have fun!\n\n'
