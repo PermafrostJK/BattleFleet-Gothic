@@ -1,11 +1,11 @@
 class Ship:
-    def __init__(self, length, direction, lable):  # lable added to differenctiate between players 1 and 2
+    def __init__(self, length, direction, label):  # label added to differenctiate between players 1 and 2
         if direction != 'V' and direction != 'H':
             raise Exception
         self.length = length
         self.direction = direction
         self.actual_location = []
-        self.lable = lable
+        self.label = label
 
     def set_ship(self, locationX, locationY):
         if self.direction == 'V': #verticle
@@ -19,7 +19,7 @@ class Ship:
 #==================================================================================================================================#
 class Battlefield:
     def __init__(self, width=8, length=8):
-        self.battlefield = [['o ' for i in range(length + 1)] for j in range(width+ 1)]
+        self.battlefield = [['o ' for i in range(length + 1)] for j in range(width + 1)]
         for i in range(length + 1):
             self.battlefield[0][i] = str(i)+" "
         for j in range(width + 1):
@@ -75,7 +75,7 @@ class Battlefield:
 #==================================================================================================================================#
 def set_for_1():
     #for player 1#
-    roster = ['Battleship', 'Cruizer', 'Destroyer', 'Corvette']
+    roster = ['Battleship', 'Cruiser', 'Destroyer', 'Corvette']
     b1 = Battlefield()
     print("*************Welcome, Player 1! The game has started! Enjoy and try to win!*************\n")
     print("The original battlefield looks like this")
@@ -83,13 +83,13 @@ def set_for_1():
     print('You need to place your ships on a 8x8 battlefield!')
     print("You have the following 4 ships:\n"
           "'Battleship' with length of 5\n"
-          "'Cruizer' with length of 4\n"
+          "'Cruiser' with length of 4\n"
           "'Destroyer' with length of 3\n"
           "'Corvette' with length of 2\n\n"
           "You need to put the ORIENTATION and LOCATION of your boat following the sequence above\n"
           "         For orientation, you need to enter 'V' for vertical and 'H' for horizontal\n"
           "         For location, you need to enter x and y coordinate for the fore of your current boat\n"
-          "*Please make sure all of your vessles are placed entirely within your half of the battlefield*\n")
+          "*Please make sure all of your vessels are placed entirely within your half of the battlefield*\n")
     l_length=[]
     l_width=[]
     for i in range(1, b1.length+1):
@@ -133,7 +133,7 @@ def set_for_1():
     return b1
 def set_for_2():
     # for player 2
-    roster = ['Battleship', 'Cruizer', 'Destroyer', 'Corvette']
+    roster = ['Battleship', 'Cruiser', 'Destroyer', 'Corvette']
     b2 = Battlefield()
     print("*************Welcome, Player 2! The game has started! Enjoy and try to win!*************\n")
     print("The original battlefield looks like this")
@@ -141,13 +141,13 @@ def set_for_2():
     print('You need to place your ships on a 8x8 battlefield!')
     print("You have the following 4 ships:\n"
           "'Battleship' with length of 5\n"
-          "'Cruizer' with length of 4\n"
+          "'Cruiser' with length of 4\n"
           "'Destroyer' with length of 3\n"
           "'Corvette' with length of 2\n\n"
           "You need to put the ORIENTATION and LOCATION of your boat following the sequence above\n"
           "         For orientation, you need to enter 'V' for vertical and 'H' for horizontal\n"
           "         For location, you need to enter x and y coordinate for the fore of your current boat\n"
-          "*Please make sure all of your vessles are placed entirely within your half of the battlefield*\n")
+          "*Please make sure all of your vessels are placed entirely within your half of the battlefield*\n")
     l_length=[]
     l_width=[]
     for i in range(1, b2.length+1):
@@ -208,7 +208,7 @@ def attack(b1,b2): # for either player 1 or player 1#
             print('Please enter a valid x/y coordinate to make sure it is in the enemy field')
             x = int(input("Player 1, guess one x coordinate of your opponent's ship "))
             y = int(input("Player 1, guess one y coordinate of your opponent's ship "))
-        while 
+
     except ValueError:
         print("Please enter a valid integer for x/y")
         x = int(input("Player 1, guess one x coordinate (ranging from 5 to 8)of your opponent's ship "))
