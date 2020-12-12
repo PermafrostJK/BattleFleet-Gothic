@@ -166,8 +166,8 @@ def set_for_2():
             y = int(input("Please set up the y coordinate of your " + roster[i]))
         except ValueError:
             continue
-        while x not in l_length or (direction == "H" and x + length-1 > b1.length) \
-                or y not in l_width or (direction=="V" and y+length-1> b1.width):
+        while x not in l_length or (direction == "H" and x + length-1 > b2.length) \
+                or y not in l_width or (direction=="V" and y+length-1> b2.width):
             print('Please enter a valid orientation and x/y coordinate to make sure it is not out of scope')
             direction = input('Please enter the orientation of your ' + roster[i])
             try:
@@ -175,7 +175,7 @@ def set_for_2():
                 y = int(input("Please set up the y coordinate of your " + roster[i]))
             except ValueError:
                 continue
-        while b1.battlefield[y][x] == "@ ":
+        while b2.battlefield[y][x] == "@ ":
             print("Please enter a valid orientation and x/y coordinate to make sure it is not the same as one of the previous boats")
             try:
                     direction = input('Please enter the orientation of your ' + roster[i])
@@ -185,7 +185,7 @@ def set_for_2():
                     continue
         a_ship = Ship(length, direction, 2)
         a_ship.set_ship(x, y)
-        b1.init_my_battlefield(a_ship)
+        b2.init_my_battlefield(a_ship)
         print(b2)
         length -= 1
     return b2
