@@ -233,7 +233,7 @@ def main():
                 
         a=input('Press enter to finish your turn') #allows the player to have a glimpse of the battlefield after their final shot
         
-        if len(l_player2_destroyed)==2:
+        if len(l_player2_destroyed)==4:
             print ('Player 1 has won through eliminating of Player 2\'s fleet.')
             return
         #======================================================#
@@ -253,7 +253,7 @@ def main():
                 attack(b1,b1_for_player2)
                 
         a=input('Press enter to finish your turn')
-        if len(l_player1_destroyed)==2:
+        if len(l_player1_destroyed)==4:
             print ('Player 2 has won through eliminating of Player 1\'s fleet.')
             return
         
