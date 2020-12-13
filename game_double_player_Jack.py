@@ -118,7 +118,7 @@ def set_battlefield():
             print('Please enter a valid orientation for your ship')
             direction = input('Please enter the orientation of your ' + roster[i])
         try:
-            x = int(input("Please set up the x coordinate of your " + roster[i])) #如果输入的不是整数，也会报错，那这个漏洞还要改吗？
+            x = int(input("Please set up the x coordinate of your " + roster[i]))
             y = int(input("Please set up the y coordinate of your " + roster[i]))
         except ValueError:
             continue
@@ -152,7 +152,7 @@ def set_battlefield():
     return b, d_roster, l_ships # d_roster is used to check whether a ship is sunk
 
 #==================================================================================================================================#
-def attack(b1,b2): # for either player 1 or player 1#
+def attack(b1,b2): # for either player 1 or player 2#
     l_length=[]
     l_width=[]
     for i in range(1, b2.length+1):
