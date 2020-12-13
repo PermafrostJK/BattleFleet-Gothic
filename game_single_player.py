@@ -219,7 +219,6 @@ def attack_for_2(b1, b2):  # for the computer#
             y=random.randint(1,8)
             x=random.randint(1,4)
     b2.update_battlefield_for_computer(x,y,b1)
-    b2.update_battlefield_for_computer(x,y,b1)
 
 
 # ==================================================================================================================================#
