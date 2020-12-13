@@ -183,7 +183,7 @@ def main():
         pass
     player1_attacks, player2_attacks=4,4
 #==================================================================================================================================#
-    for i in range(10):
+    for i in range(3):
         for k, v in d_player1_roster.items():
             HP=v[0]
             for j in v:
