@@ -177,7 +177,7 @@ def attack(b1,b2): # for either player 1 or player 2#
 def main():
     print("*************Welcome, Player 1! The game has started! Enjoy and try to win!*************\n")
     b1, d_player1_roster, player1_ships = set_battlefield()
-    if input('Are you finished placing your ships?\n')=='done':
+    if input("Are you finished placing your ships? Type 'done' when you finish.\n")=='done':
         print("*************Welcome, Player 2! The game has started! Enjoy and try to win!*************\n")
         b2, d_player2_roster, player2_ships = set_battlefield()
     else: #loop back to a function that allows player to change on of the ship's location
