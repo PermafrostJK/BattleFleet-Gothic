@@ -63,9 +63,11 @@ class Battlefield:
         elif battlefield.check_coordinate(Xcoordinate, Ycoordinate) == 1:
             self.battlefield[Ycoordinate][Xcoordinate] = '  '
             print("Great, the computer didn't hit you!")
+            print("It chose row "+str(Ycoordinate)+" and column "+str(Xcoordinate)+'!')
         else:
             self.battlefield[Ycoordinate][Xcoordinate] = 'x '
             print("Sorry, you were hit by the computer!")
+            print("It chose row "+str(Ycoordinate)+" and column "+str(Xcoordinate)+'!')
     def __str__(self):
         str = ""
         for i in range(self.width + 1):
