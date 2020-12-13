@@ -51,25 +51,25 @@ class Battlefield:
             check+=2
         return check
 #==================================================================================================================================#    
-    def display_battlefield(self):
-        pass
-#==================================================================================================================================#    
     def update_battlefield(self, Xcoordinate, Ycoordinate,battlefield):
-        
+        repeat=0
         if battlefield.check_coordinate(Xcoordinate,Ycoordinate)==0:
             print("\nThis point has already been hit, try another one next time!")
             repeat = 1
             return repeat
-        elif battlefield.check_coordinate(Xcoordinate,Ycoordinate)==1:
+        elif self.check_coordinate(Xcoordinate,Ycoordinate)==1:
+            battlefield.battlefield[Ycoordinate][Xcoordinate] = '  '
             self.battlefield[Ycoordinate][Xcoordinate] = '  '
             print("\nSorry, you didn't hit an enemy ship!")
-        else:
+        elif self.check_coordinate(Xcoordinate, Ycoordinate)==2:
+            battlefield.battlefield[Ycoordinate][Xcoordinate] = 'x '
             self.battlefield[Ycoordinate][Xcoordinate] = 'x '
             print("\nGood job, you hit an enemy ship!") 
         
-        print("Now, the battlefield looks like this")
-        print(self)
-
+        print("Enemy battlefield:")
+        print(battlefield)
+        return repeat #used to grant a player a second chance if player chooses to fire on a tile that has already been hit
+    
     def __str__(self): 
         str=""
         for i in range(self.width+1):
@@ -107,7 +107,6 @@ def set_battlefield():
     l_width=[]
     
     d_roster={'Battleship':[5],'Cruiser':[4],'Destroyer':[3],'Corvette':[2]}
-    l_ships=[]
     
     for i in range(1, b.length+1):
         l_length.append(i)
@@ -143,7 +142,6 @@ def set_battlefield():
             except ValueError:
                     continue
         a_ship = Ship(length, direction, 1)
-        l_ships.append(a_ship)
         a_ship.set_ship(x, y)
         for j in a_ship.actual_location:
             d_roster[roster[i]].append(j)
@@ -152,15 +150,15 @@ def set_battlefield():
                            #battlefield without repetition
         print(b)
         length -= 1
-    return b, d_roster, l_ships # d_roster is used to check whether a ship is sunk
+    return b, d_roster # d_roster is used to check whether a ship is sunk
 
 #==================================================================================================================================#
-def attack(b1,b2): # for either player 1 or player 2#
+def attack(actual_battlefield,displayed_battlefield): # for either player 1 or player 1#
     l_length=[]
     l_width=[]
-    for i in range(1, b2.length+1):
+    for i in range(1, actual_battlefield.length+1):
         l_length.append(i)
-    for i in range(1, b2.width+1):
+    for i in range(1, actual_battlefield.width+1):
         l_width.append(i)
     try:
         x = int(input("Guess one x coordinate of your opponent's ship "))
@@ -174,28 +172,28 @@ def attack(b1,b2): # for either player 1 or player 2#
         print("Please enter a valid integer for x/y")
         x = int(input("Guess one x coordinate of your opponent's ship "))
         y = int(input("Guess one y coordinate of your opponent's ship "))
-        
-    b2.update_battlefield(x,y,b2)
-    b2.display_battlefield()
+    
+    repeat=actual_battlefield.update_battlefield(x,y,displayed_battlefield)
+    return repeat
+    
     
 #==================================================================================================================================#
 def main():
     print("*************Welcome, Player 1! The game has started! Enjoy and try to win!*************\n")
-    b1, d_player1_roster, player1_ships = set_battlefield()
+    b1, d_player1_roster = set_battlefield()
     if input('Are you finished placing your ships?\n')=='done':
+        os.system('clear')
         print("*************Welcome, Player 2! The game has started! Enjoy and try to win!*************\n")
-        b2, d_player2_roster, player2_ships = set_battlefield()
+        b2, d_player2_roster= set_battlefield()
     else: #loop back to a function that allows player to change on of the ship's location
         pass
+    b1_for_player2 = Battlefield()
+    b2_for_player1 = Battlefield()
     player1_attacks, player2_attacks=4,4
     l_player1_destroyed=[]
     l_player2_destroyed=[]
 #==================================================================================================================================#
     for i in range(5):
-        
-        os.system('clear')
-        print("Player1's turn:\n")
-        print(b2) #displays the current state of the opponent's battlefield for player to consult while planning attacks
         for k, v in d_player1_roster.items():
             HP=v[0]
             for j in v:
@@ -209,21 +207,7 @@ def main():
                 
         for i in l_player1_destroyed:    
             d_player1_roster.pop(i,None)
-        shots=2-len(l_player1_destroyed)
-        print('Casualties:',l_player1_destroyed)
-        print('Kills:',l_player2_destroyed)
-        print('Number of shots: %s'%shots)
-        for i in range(player1_attacks):
-            print('shot number %s' %(i+1))
-            attack(b1, b2)
-        a=input('Press enter to finish your turn') #allows the player to have a glimpse of the battlefield after their final shot
-        if len(l_player1_destroyed)==2:
-            print ('Player 2 has won through eliminating of Player 1\'s fleet.')
-            return
-        #======================================================#
-        os.system('clear')
-        print("Player2's turn:\n")
-        print(b1)
+            
         for k, v in d_player2_roster.items():
             HP=v[0]
             for j in v:
@@ -236,16 +220,48 @@ def main():
                 l_player2_destroyed.append(k)
         for i in l_player2_destroyed:
             d_player2_roster.pop(i,None)
-        shots=2-len(l_player2_destroyed)
-        print('Casualties:',l_player2_destroyed)
-        print('Kills:',l_player1_destroyed)
-        print('Number of shots: %s'%shots)
-        for i in range(player2_attacks):
+        
+        shots_player1=4-len(l_player1_destroyed)
+        shots_player2=4-len(l_player2_destroyed)
+        
+        os.system('clear')
+        print("Player1's turn:\n")
+        print(b2_for_player1) #displays the current state of the opponent's battlefield for player to consult while planning attacks
+        
+        print('Casualties:',l_player1_destroyed)
+        print('Kills:',l_player2_destroyed)
+        print('Number of shots: %s'%shots_player1)
+        
+        for i in range(player1_attacks):
             print('shot number %s' %(i+1))
-            attack(b2, b1)
-        a=input('Press enter to finish your turn')
+            
+            while attack(b2,b2_for_player1)==1:
+                attack(b2,b2_for_player1)
+                
+        a=input('Press enter to finish your turn') #allows the player to have a glimpse of the battlefield after their final shot
+        
         if len(l_player2_destroyed)==2:
             print ('Player 1 has won through eliminating of Player 2\'s fleet.')
+            return
+        #======================================================#
+        os.system('clear')
+        print("Player2's turn:\n")
+        print(b1_for_player2)
+        
+        
+        print('Casualties:',l_player2_destroyed)
+        print('Kills:',l_player1_destroyed)
+        print('Number of shots: %s'%shots_player2)
+        
+        for i in range(player2_attacks):
+            print('shot number %s' %(i+1))
+            
+            while attack(b1,b1_for_player2)==1:
+                attack(b1,b1_for_player2)
+                
+        a=input('Press enter to finish your turn')
+        if len(l_player1_destroyed)==2:
+            print ('Player 2 has won through eliminating of Player 1\'s fleet.')
             return
         
     p1=b2.points_calculator()
