@@ -35,7 +35,7 @@ class Battlefield:
             self.battlefield[j][0] = str(j)+" "
         self.width = width
         self.length = length
-        self.strbattlefield = '' #Unused attribute
+
 
     def init_my_battlefield(self,ship):
         for actual_boat in ship.actual_location:
@@ -50,8 +50,9 @@ class Battlefield:
         else:
             check+=2
         return check
-    
+#==================================================================================================================================#    
     def update_battlefield(self, Xcoordinate, Ycoordinate,battlefield):
+        
         if battlefield.check_coordinate(Xcoordinate,Ycoordinate)==0:
             print("\nThis point has already been hit, try another one next time!")
             repeat = 1
@@ -61,19 +62,19 @@ class Battlefield:
             print("\nSorry, you didn't hit an enemy ship!")
         else:
             self.battlefield[Ycoordinate][Xcoordinate] = 'x '
-            print("\nGood job, you hit an enemy ship!")           
+            print("\nGood job, you hit an enemy ship!") 
+        
         print("Now, the battlefield looks like this")
         print(self)
-        
 
-    def __str__(self): #Unused method
+    def __str__(self): 
         str=""
         for i in range(self.width+1):
             for j in range(self.length+1):
                 str+=self.battlefield[i][j]
             str+="\n"
         return str
-    
+
     def points_calculator(self):
         count = 0
         for i in range(1,self.length+1):
@@ -170,7 +171,7 @@ def attack(b1,b2): # for either player 1 or player 1#
         print("Please enter a valid integer for x/y")
         x = int(input("Guess one x coordinate of your opponent's ship "))
         y = int(input("Guess one y coordinate of your opponent's ship "))
-    b1.update_battlefield(x,y,b2)
+    b2.update_battlefield(x,y,b2)
     
 #==================================================================================================================================#
 def main():
@@ -182,8 +183,14 @@ def main():
     else: #loop back to a function that allows player to change on of the ship's location
         pass
     player1_attacks, player2_attacks=4,4
+    l_player1_destroyed=[]
+    l_player2_destroyed=[]
 #==================================================================================================================================#
     for i in range(3):
+        
+        os.system('clear')
+        print("Player1's turn:\n")
+        print(b2) #displays the current state of the opponent's battlefield for player to consult while planning attacks
         for k, v in d_player1_roster.items():
             HP=v[0]
             for j in v:
@@ -191,8 +198,20 @@ def main():
                     if b1.battlefield[j[1]][j[0]]=='x ':
                         HP-=1
             if HP==0:
+                
                 player1_attacks-=1
-        
+                l_player1_destroyed.append(k)
+                
+        for i in l_player1_destroyed:    
+            d_player1_roster.pop(i,None)
+        print('Player 1 damage assessment:',l_player1_destroyed)
+        for i in range(player1_attacks):
+            print('shot number %s' %(i+1))
+            attack(b1, b2)
+        #======================================================#
+        os.system('clear')
+        print("Player2's turn:\n")
+        print(b1)
         for k, v in d_player2_roster.items():
             HP=v[0]
             for j in v:
@@ -200,19 +219,22 @@ def main():
                     if b2.battlefield[j[1]][j[0]]=='x ':
                         HP-=1
             if HP==0:
+                
                 player2_attacks-=1
-#==================================================================================================================================#                
-        print("Player1's turn:\n")
-        for i in range(player1_attacks):
-            print('shot number %s' %(i+1))
-            attack(b1, b2)
-        print("Player2's turn:\n")        
+                l_player2_destroyed.append(k)
+        for i in l_player2_destroyed:
+            d_player2_roster.pop(i,None)
+        print('Player 2 damage assessment:',l_player2_destroyed)
         for i in range(player2_attacks):
             print('shot number %s' %(i+1))
             attack(b2, b1)
-        # if ships of one player is all sunk:
-            # print victory message for the other player
-            # break
+        if len(l_player1_destroyed)==2:
+            print ('Player 2 has won through eliminating of Player 1\'s fleet.')
+            break
+        if len(l_player2_destroyed)==2:
+            print ('Player 1 has won through eliminating of Player 2\'s fleet.')
+            break
+        
     p1=b1.points_calculator()
     p2=b2.points_calculator()
     if p1>p2:
