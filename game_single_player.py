@@ -1,5 +1,5 @@
 import random
-
+listc=[[2,4]]
 
 class Ship:
     def __init__(self, length, direction, lable):  # lable added to differenctiate between players 1 and 2
@@ -200,8 +200,25 @@ def attack_for_1(b1, b2):  # for the player#
 
 def attack_for_2(b1, b2):  # for the computer#
 
-    x = random.randint(1, 4)
-    y = random.randint(1, 8)
+    p=listc[-1]
+    listchoose=[-1,1]
+    k=random.randint(0,1) #choose minus 1 or plus 1
+    l=random.randint(0,1) #choose x or y
+    if l==0:
+        if 1<=p[l]+listchoose[k]<=8 and [p[l]+listchoose[k],p[1]] not in listc:
+            y=p[l]+listchoose[k]
+            x=p[1]
+        else:
+            y=random.randint(1,8)
+            x=random.randint(1,4)
+    else:
+        if 1<=p[l]+listchoose[k]<=4 and [p[0],p[l]+listchoose[k]] not in listc:
+            x=p[l]+listchoose[k]
+            y=p[0]
+        else:
+            y=random.randint(1,8)
+            x=random.randint(1,4)
+    b2.update_battlefield_for_computer(x,y,b1)
     b2.update_battlefield_for_computer(x,y,b1)
 
 
