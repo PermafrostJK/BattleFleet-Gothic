@@ -212,7 +212,7 @@ def main():
             for i in l_player2_destroyed:
                 d_player2_roster.pop(i,None)
             
-            if len(l_player2_destroyed)==2:
+            if len(l_player2_destroyed)==4:
                 print ('Player 1 has won through eliminating Player 2\'s fleet.')
                 return
         a=input('Press enter to finish your turn') #allows the player to have a glimpse of the battlefield after their final shot
@@ -231,8 +231,7 @@ def main():
         for i in range(player2_attacks):
             print('shot number %s' %(i+1))
             
-            while attack(b1,b1_for_player2)==1:
-                attack(b1,b1_for_player2)
+            attack(b1,b1_for_player2)
             for k, v in d_player1_roster.items():
                 HP=v[0]
                 for j in v:
@@ -245,7 +244,7 @@ def main():
                 
             for i in l_player1_destroyed:    
                 d_player1_roster.pop(i,None)
-            if len(l_player1_destroyed)==2:
+            if len(l_player1_destroyed)==4:
                 print ('Player 2 has won through eliminating Player 1\'s fleet.')
                 return
         a=input('Press enter to finish your turn')
