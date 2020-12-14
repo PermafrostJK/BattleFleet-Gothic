@@ -1,14 +1,14 @@
+import os
+
 class Ship:
-    def __init__(self, length, direction, label):  # label added to differenctiate between players 1 and 2
-        if direction != 'V' and direction != 'H':
-            raise Exception
+    def __init__(self, length, direction):  
         self.length = length
         self.direction = direction
         self.actual_location = []
-        self.label = label
+        
 
     def set_ship(self, locationX, locationY):
-        if self.direction == 'V': #verticle
+        if self.direction == 'V': #vertical
             for i in range(self.length):
                 the_boat = [locationX, locationY + i]
                 self.actual_location.append(the_boat)
@@ -26,7 +26,7 @@ class Battlefield:
             self.battlefield[j][0] = str(j)+" "
         self.width = width
         self.length = length
-        self.strbattlefield = ''
+        
 
     def init_my_battlefield(self,ship):
         for actual_boat in ship.actual_location:
@@ -41,30 +41,34 @@ class Battlefield:
         else:
             check+=2
         return check
-    
+
     def update_battlefield(self, Xcoordinate, Ycoordinate,battlefield):
+        
         if battlefield.check_coordinate(Xcoordinate,Ycoordinate)==0:
             print("\nThis point has already been hit, try another one next time!")
-            repeat = 1
-            return repeat
-        elif battlefield.check_coordinate(Xcoordinate,Ycoordinate)==1:
+            attack(self, battlefield)
+            return
+        elif self.check_coordinate(Xcoordinate,Ycoordinate)==1:
+            battlefield.battlefield[Ycoordinate][Xcoordinate] = '  '
             self.battlefield[Ycoordinate][Xcoordinate] = '  '
             print("\nSorry, you didn't hit an enemy ship!")
-        else:
+        elif self.check_coordinate(Xcoordinate, Ycoordinate)==2:
+            battlefield.battlefield[Ycoordinate][Xcoordinate] = 'x '
             self.battlefield[Ycoordinate][Xcoordinate] = 'x '
-            print("\nGood job, you hit an enemy ship!")           
-        print("Now, the battlefield looks like this")
-        print(self)
+            print("\nGood job, you hit an enemy ship!") 
         
-
+        print("Enemy battlefield:")
+        print(battlefield)
+         #used to grant a player a second chance if player chooses to fire on a tile that has already been hit
     
-    def __str__(self):
+    def __str__(self): 
         str=""
         for i in range(self.width+1):
             for j in range(self.length+1):
                 str+=self.battlefield[i][j]
             str+="\n"
         return str
+
     def points_calculator(self):
         count = 0
         for i in range(1,self.length+1):
@@ -73,157 +77,182 @@ class Battlefield:
                     count += 1
         return count
 #==================================================================================================================================#
-def set_for_1():
+def set_battlefield():
     #for player 1#
     roster = ['Battleship', 'Cruiser', 'Destroyer', 'Corvette']
-    b1 = Battlefield()
-    print("*************Welcome, Player 1! The game has started! Enjoy and try to win!*************\n")
+    b = Battlefield()
+    
     print("The original battlefield looks like this")
-    print(b1)
+    print(b)
     print('You need to place your ships on a 8x8 battlefield!')
     print("You have the following 4 ships:\n"
           "'Battleship' with length of 5\n"
           "'Cruiser' with length of 4\n"
           "'Destroyer' with length of 3\n"
           "'Corvette' with length of 2\n\n"
-          "You need to put the ORIENTATION and LOCATION of your boat following the sequence above\n"
+          "You need to input the ORIENTATION and LOCATION of your boat following the sequence above\n"
           "         For orientation, you need to enter 'V' for vertical and 'H' for horizontal\n"
-          "         For location, you need to enter x and y coordinate for the fore of your current boat\n"
-          "*Please make sure all of your vessels are placed entirely within your half of the battlefield*\n")
+          "         For location, you need to enter x and y coordinate for the first block of your current boat\n"
+          "             *Please make sure all of your vessels are placed entirely within the battlefield*\n"
+          "         The objective of the game is to hit as many of the opponent's ships as possible before the alloted turns run out\n"
+          "         Each player can shoot n times per turn, where n = the number of ships in the player's roster\n"
+          "         This number decreases by one every time the player has one of his/her ships destroyed by the opponent"
+          )
     l_length=[]
     l_width=[]
-    for i in range(1, b1.length+1):
+    
+    d_roster={'Battleship':[5],'Cruiser':[4],'Destroyer':[3],'Corvette':[2]}
+    
+    for i in range(1, b.length+1):
         l_length.append(i)
-    for i in range(1, b1.width+1):
+    for i in range(1, b.width+1):
         l_width.append(i)
     
     length = 5
     for i in range(4):
-        direction = input('Please enter the orientation of your ' + roster[i])
+        direction = input('Please enter the orientation of your ' + roster[i]+'\n')
         while direction != 'V' and direction != 'H':
             print('Please enter a valid orientation for your ship')
-            direction = input('Please enter the orientation of your ' + roster[i])
+            direction = input('Please enter the orientation of your ' + roster[i]+'\n')
         try:
-            x = int(input("Please set up the x coordinate of your " + roster[i])) #如果输入的不是整数，也会报错，那这个漏洞还要改吗？
-            y = int(input("Please set up the y coordinate of your " + roster[i]))
+            x = int(input("Please set up the x coordinate of your " + roster[i]+'\n')) 
+            y = int(input("Please set up the y coordinate of your " + roster[i]+'\n'))
         except ValueError:
             continue
-        while x not in l_length or (direction == "H" and x + length-1 > b1.length) \
-                or y not in l_width or (direction=="V" and y+length-1> b1.width):
+        while x not in l_length or (direction == "H" and x + length-1 > b.length) \
+                or y not in l_width or (direction=="V" and y+length-1> b.width):
             print('Please enter a valid orientation and x/y coordinate to make sure it is not out of scope')
             direction = input('Please enter the orientation of your ' + roster[i])
             try:
-                x = int(input("Please set up the x coordinate of your " + roster[i]))
-                y = int(input("Please set up the y coordinate of your " + roster[i]))
+                x = int(input("Please set up the x coordinate of your " + roster[i]+'\n'))
+                y = int(input("Please set up the y coordinate of your " + roster[i]+'\n'))
             except ValueError:
                 continue
-        while b1.battlefield[y][x] == "@ ":
+        while b.battlefield[y][x] == "@ ":
             print("Please enter a valid orientation and x/y coordinate to make sure it is not the same as one of the previous boats")
             try:
-                    direction = input('Please enter the orientation of your ' + roster[i])
-                    x = int(input("Please set up the x coordinate of your " + roster[i]))
-                    y = int(input("Please set up the y coordinate of your " + roster[i]))
+                    direction = input('Please enter the orientation of your ' + roster[i]+'\n')
+                    x = int(input("Please set up the x coordinate of your " + roster[i]+'\n'))
+                    y = int(input("Please set up the y coordinate of your " + roster[i]+'\n'))
             except ValueError:
                     continue
-        a_ship = Ship(length, direction, 1)
+        a_ship = Ship(length, direction)
         a_ship.set_ship(x, y)
-        b1.init_my_battlefield(a_ship)
-        print(b1)
+        for j in a_ship.actual_location:
+            d_roster[roster[i]].append(j)
+        b.init_my_battlefield(a_ship)
+        os.system('clear') #clears previous output so that the player sees what appears to be a rapid update of the 
+                           #battlefield without repetition
+        print(b)
         length -= 1
-    return b1
-def set_for_2():
-    # for player 2
-    roster = ['Battleship', 'Cruiser', 'Destroyer', 'Corvette']
-    b2 = Battlefield()
-    print("*************Welcome, Player 2! The game has started! Enjoy and try to win!*************\n")
-    print("The original battlefield looks like this")
-    print(b2)
-    print('You need to place your ships on a 8x8 battlefield!')
-    print("You have the following 4 ships:\n"
-          "'Battleship' with length of 5\n"
-          "'Cruiser' with length of 4\n"
-          "'Destroyer' with length of 3\n"
-          "'Corvette' with length of 2\n\n"
-          "You need to put the ORIENTATION and LOCATION of your boat following the sequence above\n"
-          "         For orientation, you need to enter 'V' for vertical and 'H' for horizontal\n"
-          "         For location, you need to enter x and y coordinate for the fore of your current boat\n"
-          "*Please make sure all of your vessels are placed entirely within your half of the battlefield*\n")
-    l_length=[]
-    l_width=[]
-    for i in range(1, b2.length+1):
-        l_length.append(i)
-    for i in range(1, b2.width+1):
-        l_width.append(i)
-    
-    length = 5
-    for i in range(4):
-        direction = input('Please enter the orientation of your ' + roster[i])
-        while direction != 'V' and direction != 'H':
-            print('Please enter a valid orientation for your ship')
-            direction = input('Please enter the orientation of your ' + roster[i])
-        try:
-            x = int(input("Please set up the x coordinate of your " + roster[i])) #如果输入的不是整数，也会报错，那这个漏洞还要改吗？
-            y = int(input("Please set up the y coordinate of your " + roster[i]))
-        except ValueError:
-            continue
-        while x not in l_length or (direction == "H" and x + length-1 > b2.length) \
-                or y not in l_width or (direction=="V" and y+length-1> b2.width):
-            print('Please enter a valid orientation and x/y coordinate to make sure it is not out of scope')
-            direction = input('Please enter the orientation of your ' + roster[i])
-            try:
-                x = int(input("Please set up the x coordinate of your " + roster[i]))
-                y = int(input("Please set up the y coordinate of your " + roster[i]))
-            except ValueError:
-                continue
-        while b2.battlefield[y][x] == "@ ":
-            print("Please enter a valid orientation and x/y coordinate to make sure it is not the same as one of the previous boats")
-            try:
-                    direction = input('Please enter the orientation of your ' + roster[i])
-                    x = int(input("Please set up the x coordinate of your " + roster[i]))
-                    y = int(input("Please set up the y coordinate of your " + roster[i]))
-            except ValueError:
-                    continue
-        a_ship = Ship(length, direction, 2)
-        a_ship.set_ship(x, y)
-        b2.init_my_battlefield(a_ship)
-        print(b2)
-        length -= 1
-    return b2
-#==================================================================================================================================#
-def attack(b1,b2): # for either player 1 or player 1#
-    l_length=[]
-    l_width=[]
-    for i in range(1, b2.length+1):
-        l_length.append(i)
-    for i in range(1, b2.width+1):
-        l_width.append(i)
-#==================================================================================================================================#
-    for i in len(player.roster):#implement loop that allows player to fire a certain number of shots equal to his remaining ship number   
-        pass
-#==================================================================================================================================#
-    try:
-        x = int(input("Player 1, guess one x coordinate of your opponent's ship "))
-        y = int(input("Player 1, guess one y coordinate of your opponent's ship "))
-        while x not in l_length or y not in l_width:
-            print('Please enter a valid x/y coordinate to make sure it is in the enemy field')
-            x = int(input("Player 1, guess one x coordinate of your opponent's ship "))
-            y = int(input("Player 1, guess one y coordinate of your opponent's ship "))
+    return b, d_roster # d_roster is used to check whether a ship is sunk
 
-    except ValueError:
-        print("Please enter a valid integer for x/y")
-        x = int(input("Player 1, guess one x coordinate (ranging from 5 to 8)of your opponent's ship "))
-        y = int(input("Player 1, guess one y coordinate (ranging from 1 to 8)of your opponent's ship "))
-    b1.update_battlefield(x,y,b2)
+#==================================================================================================================================#
+def attack(actual_battlefield,displayed_battlefield): 
+    l_length=[]
+    l_width=[]
+    for i in range(1, actual_battlefield.length+1):
+        l_length.append(i)
+    for i in range(1, actual_battlefield.width+1):
+        l_width.append(i)
+    
+    x = int(input("Guess one x coordinate of your opponent's ship "))
+    y = int(input("Guess one y coordinate of your opponent's ship "))
+    while x not in l_length or y not in l_width:
+        print('Please enter a valid x/y coordinate to make sure it is in the enemy field')
+        x = int(input("Guess one x coordinate of your opponent's ship "))
+        y = int(input("Guess one y coordinate of your opponent's ship "))
+ 
+    actual_battlefield.update_battlefield(x,y,displayed_battlefield)
     
 #==================================================================================================================================#
 def main():
-    b1 = set_for_1()
-    b2 = set_for_2()
-    for i in range(10):
-        attack(b1, b2)
-        attack(b2, b1)
-    p1=b1.points_for_1()
-    p2=b2.points_for_2()
+    print("*************Welcome, Player 1! The game has started! Enjoy and try to win!*************\n")
+    b1, d_player1_roster = set_battlefield()
+    a=input('Press enter to continue.\n')
+    os.system('clear')
+    print("*************Welcome, Player 2! The game has started! Enjoy and try to win!*************\n")
+    b2, d_player2_roster= set_battlefield()
+    a=input('Press enter to continue.\n')
+    b1_for_player2 = Battlefield()
+    b2_for_player1 = Battlefield()
+    player1_attacks, player2_attacks=4,4
+    l_player1_destroyed=[]
+    l_player2_destroyed=[]
+#==================================================================================================================================#
+    for i in range(5):                    
+        shots_player1=4-len(l_player1_destroyed)
+        shots_player2=4-len(l_player2_destroyed)
+        
+        os.system('clear')
+        print("Player1's turn:\n")
+        print('Enemy battlefield:')
+        print(b2_for_player1)#displays the current state of the opponent's battlefield for player to consult while planning attacks
+        print('Your battlefield:')
+        print(b1)
+        
+        print('Casualties:',l_player1_destroyed)
+        print('Kills:',l_player2_destroyed)
+        print('Number of shots: %s'%shots_player1)
+        
+        for i in range(player1_attacks):
+            print('shot number %s' %(i+1))
+            
+            attack(b2,b2_for_player1)
+            for k, v in d_player2_roster.items():
+                HP=v[0]
+                for j in v:
+                    if type(j)==list:
+                        if b2.battlefield[j[1]][j[0]]=='x ':
+                            HP-=1
+                if HP==0:
+                    player2_attacks-=1
+                    l_player2_destroyed.append(k)
+                                        
+            for i in l_player2_destroyed:
+                d_player2_roster.pop(i,None)
+            
+            if len(l_player2_destroyed)==2:
+                print ('Player 1 has won through eliminating Player 2\'s fleet.')
+                return
+        a=input('Press enter to finish your turn') #allows the player to have a glimpse of the battlefield after their final shot
+        #======================================================#
+        os.system('clear')
+        print("Player2's turn:\n")
+        print('Enemy battlefield:')
+        print(b1_for_player2)
+        print('Your battlefield:')
+        print(b2)
+        
+        print('Casualties:',l_player2_destroyed)
+        print('Kills:',l_player1_destroyed)
+        print('Number of shots: %s'%shots_player2)
+        
+        for i in range(player2_attacks):
+            print('shot number %s' %(i+1))
+            
+            while attack(b1,b1_for_player2)==1:
+                attack(b1,b1_for_player2)
+            for k, v in d_player1_roster.items():
+                HP=v[0]
+                for j in v:
+                    if type(j)==list:
+                        if b1.battlefield[j[1]][j[0]]=='x ':
+                            HP-=1
+                    if HP==0:             
+                        player1_attacks-=1
+                        l_player1_destroyed.append(k)
+                
+            for i in l_player1_destroyed:    
+                d_player1_roster.pop(i,None)
+            if len(l_player1_destroyed)==2:
+                print ('Player 2 has won through eliminating Player 1\'s fleet.')
+                return
+        a=input('Press enter to finish your turn')
+        
+        
+    p1=b2.points_calculator()
+    p2=b1.points_calculator()
     if p1>p2:
         print("Player 1 wins!")
     elif p1<p2:
