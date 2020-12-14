@@ -176,7 +176,7 @@ def main():
     a=input('Press enter to continue.\n')
     b1_for_player2 = Battlefield()
     b2_for_player1 = Battlefield()
-    player1_attacks, player2_attacks=4,4
+    
     l_player1_destroyed=[]
     l_player2_destroyed=[]
 #==================================================================================================================================#
@@ -195,7 +195,7 @@ def main():
         print('Kills:',l_player2_destroyed)
         print('Number of shots: %s'%shots_player1)
         
-        for i in range(player1_attacks):
+        for i in range(shots_player1):
             print('shot number %s' %(i+1))
             
             attack(b2,b2_for_player1)
@@ -206,7 +206,7 @@ def main():
                         if b2.battlefield[j[1]][j[0]]=='x ':
                             HP-=1
                 if HP==0:
-                    player2_attacks-=1
+                    
                     l_player2_destroyed.append(k)
                                         
             for i in l_player2_destroyed:
@@ -228,7 +228,7 @@ def main():
         print('Kills:',l_player1_destroyed)
         print('Number of shots: %s'%shots_player2)
         
-        for i in range(player2_attacks):
+        for i in range(shots_player2):
             print('shot number %s' %(i+1))
             
             attack(b1,b1_for_player2)
@@ -239,7 +239,7 @@ def main():
                         if b1.battlefield[j[1]][j[0]]=='x ':
                             HP-=1
                     if HP==0:             
-                        player1_attacks-=1
+                        
                         l_player1_destroyed.append(k)
                 
             for i in l_player1_destroyed:    
