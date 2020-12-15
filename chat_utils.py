@@ -17,7 +17,7 @@ menu = "\n++++ Choose one of the following commands\n \
         p _#_: to get number <#> sonnet\n \
         q: to leave the chat system\n \
         jisuan: to start the small calculator\n \
-        game: to start the gold search\n \
+        game: to start the gold search (online double game)\n \
         game1: to start the Battlefleet Game (single version)\n \
         game2: to start the Battlefleet Game (double version)\n\n"
 
