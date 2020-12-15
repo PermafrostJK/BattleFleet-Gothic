@@ -16,6 +16,8 @@ menu = "\n++++ Choose one of the following commands\n \
         ? _term_: to search your chat logs where _term_ appears\n \
         p _#_: to get number <#> sonnet\n \
         q: to leave the chat system\n \
+        jisuan: to start the small calculator\n \
+        game: to start the gold search\n \
         game1: to start the Battlefleet Game (single version)\n \
         game2: to start the Battlefleet Game (double version)\n\n"
 
@@ -23,7 +25,7 @@ S_OFFLINE   = 0
 S_CONNECTED = 1
 S_LOGGEDIN  = 2
 S_CHATTING  = 3
-S_GAMING = 4
+
 
 SIZE_SPEC = 5
 
