@@ -108,6 +108,10 @@ class ClientSM:
                     self.out_msg += ' Have fun!\n\n'
                     self.out_msg += '-----------------------------------\n'
                     os.system('python game_two_players.py')
+                
+                elif my_msg[0:6]=="jisuan":
+                    self.out_msg+=' Start calculating!\n\n'
+                    os.system('python calculator.py')
 
 
                 else:
