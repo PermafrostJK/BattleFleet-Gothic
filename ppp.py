@@ -17,13 +17,13 @@ class Battlefield:
                 self.location.append([row,column])
                 self.battlefield[column][row]='x '
                 i=i-1
-        print(self.location)
+       
         return self.battlefield
 
 
     def attack(self,list0):
         if list0 in self.location:
-            print('You hit and win!')
+            
             return True
 
             
