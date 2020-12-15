@@ -9,3 +9,9 @@ can see player2's battlefield (all balnk initially and updated after each shot i
 
 The state of player1's and 2's fleets are also displayed as lists with 'casualties' shows the ships that were destroyed by the opponent and 'kills' showing the enemy 
 ships that were destroyed by the player.
+
+Repeated attacks on the same tile will cause the game to display an error message, the player will get a second chance and has to input fresh coordinates that the shot is aimed at.
+
+The screen is cleared after each player finished his turn.
+
+Victory is achieved either through destroying all of the opponent's ships or through hitting more tiles with ships in them than the opponent when the alloted turns run out. 
