@@ -1,4 +1,4 @@
-# BattleFleet-Gothic
+# Battleships
 Single device game of battleships
 Players begin the game by adding their own ships onto a 8*8 battlefield 
 The ships cannot overlap, nor can they exceed the scope of the battlefield
